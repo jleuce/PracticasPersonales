@@ -83,7 +83,7 @@ function Home() {
                             value={form.nombre} 
                             required/>
                         </div>
-                        {errors.name?<p>{errors.name}</p>:""}
+                        {errors.name?<p className='textBoxAlert'>{errors.name}</p>:form.nombre != null?<p className='textBoxValid'>"Ok"</p>:""}
                         <div>
                             <label className="text-center">Descripción</label>
                             <input 
