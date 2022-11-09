@@ -4,7 +4,8 @@ const fetchErrorHandle = (response) => response.status === 200
     ? Promise.resolve(response)
     : response.json().then(data => Promise.reject({response, data}));
 
-export const traerProductos = () => {
+export const traerProductos = (setLoading) => {
+    setLoading(true)
     const URL = `${API_URL}/productos`
     return fetch (URL)
         .then(fetchErrorHandle)
@@ -13,6 +14,7 @@ export const traerProductos = () => {
         })
         .then (res =>{
             console.log(res.productos)
+            setLoading(false)
             return (res.productos)
         })
         .catch( err => {
