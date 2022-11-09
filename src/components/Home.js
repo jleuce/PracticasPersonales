@@ -74,7 +74,7 @@ function Home() {
                     <form onSubmit={handleSubmit()}>
                         <div>
                             <label className="text-center" >Nombre</label>
-                            <input 
+                            <input className= {errors.name?"textBoxAlert text-center":"text-center"}
                             type="text" 
                             name="nombre" 
                             placeholder='Escribe tu nombre' 
@@ -83,7 +83,7 @@ function Home() {
                             value={form.nombre} 
                             required/>
                         </div>
-                        {errors.name?<p className='textBoxAlert'>{errors.name}</p>:form.nombre != null?<p className='textBoxValid'>"Ok"</p>:""}
+                        {errors.name?<p className='textBoxAlert'>{errors.name}</p>:form.nombre.length > (1)?<p className='textBoxValid'>Ok</p>:""}
                         <div>
                             <label className="text-center">Descripción</label>
                             <input 
