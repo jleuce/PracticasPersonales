@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 import { traerProductos } from '../backend/funcionesBackEnd'
 import ProductRow from './ProductRow';
 
@@ -22,12 +23,11 @@ function ProducList() {
             </>
         )
     }else{
-        console.log("cargo");
-        console.log(listaProductos);
+        console.log("cargó");
         return(
             <>
             <div>
-                <button>Agregar Producto</button>
+                <Link to={'/formulario/newP'}>Agregar Producto</Link>
             </div>
             <div>
                 <table>

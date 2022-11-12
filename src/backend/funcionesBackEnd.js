@@ -13,7 +13,7 @@ export const traerProductos = (setLoading) => {
             return response.json()
         })
         .then (res =>{
-            console.log(res.productos)
+            //console.log(res.productos)
             setLoading(false)
             return (res.productos)
         })

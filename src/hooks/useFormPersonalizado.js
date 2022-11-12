@@ -27,5 +27,6 @@ export const useFormPersonalizado = (initialForm, validateForm) =>{
         handleChange,
         handleBlur,
         handleSubmit,
+        setForm,
     }
 }
