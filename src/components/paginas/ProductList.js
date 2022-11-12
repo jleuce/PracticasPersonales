@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { traerProductos } from '../backend/funcionesBackEnd'
-import ProductRow from './ProductRow';
+import { traerProductos } from '../../backend/funcionesBackEnd'
+import ProductRow from '../ProductRow';
 
 
 function ProducList() {
@@ -27,7 +27,7 @@ function ProducList() {
         return(
             <>
             <div>
-                <Link to={'/formulario/newP'}>Agregar Producto</Link>
+                <Link to={'/formulario/agregarnuevoproducto'}>Agregar Producto</Link>
             </div>
             <div>
                 <table>

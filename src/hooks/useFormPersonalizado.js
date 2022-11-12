@@ -17,7 +17,8 @@ export const useFormPersonalizado = (initialForm, validateForm) =>{
         handleChange(e);
         setErrors(validateForm(form));
     };
-    const handleSubmit = (e)=>{};
+    const handleSubmit = (e)=>{
+    };
 
     return {
         form,
