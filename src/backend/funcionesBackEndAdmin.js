@@ -4,53 +4,107 @@ const fetchErrorHandle = (response) => response.status === 200
     ? Promise.resolve(response)
     : response.json().then(data => Promise.reject({response, data}));
 
-export const traerProductos = (setLoading) => {
-    setLoading(true)
-    const URL = `${API_URL}/productos`
-    return fetch (URL)
+
+export const login = (email, password) => {
+    return fetch (`${API_URL}/auth/login`, {
+        method: "POST",
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email, password})
+    })
         .then(fetchErrorHandle)
         .then(response => {
             return response.json()
         })
-        .then (res =>{
-            setLoading(false)
-            return (res.productos)
+        .then (res => {
+            return res;
         })
         .catch( err => {
-            setLoading(false);
             console.log(err);
             throw err;
         })
 }
 
-export const traerPedidos = () => {
-    return fetch(`${API_URL}/pedidos`)
+export const traerProductos = (token) => {
+    return fetch (`${API_URL}/productos`, {method: "GET", headers: {'Authorization': `Bearer ${token}`}})
         .then(fetchErrorHandle)
-        .then(response => response.json())
-        .then(responseObject => responseObject.pedidos);
+        .then(response => {
+            return response.json()
+        })
+        .then (res =>{
+            return (res.productos)
+        })
+        .catch( err => {
+            console.log(err);
+            throw err;
+        })
 }
-    
-export const traerPedido = (idPedido) =>{
-     return fetch(`${API_URL}/pedidos/${idPedido}`)
-        .then(fetchErrorHandle)
-        .then(response => response.json())
-        .then(responseObject => responseObject.pedido);
+
+export const traerProducto = (token, idProducto) => {
+    return fetch(`${API_URL}/productos/${idProducto}`, {method: "GET", headers: {'Authorization': `Bearer ${token}`}})
+       .then(fetchErrorHandle)
+       .then(response => response.json())
+       .then(responseObject => responseObject.producto);
 }
-    
-export const crearProducto = (datosProducto) =>{
+
+export const crearProducto = (token, datosProducto) =>{
     return fetch(`${API_URL}/productos`,
         {
             method: "POST",
             mode: 'cors',
             cache: 'no-cache',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(datosProducto)
         })
             .then(fetchErrorHandle)
             .then(response => response.json())
             .then(responseObject => responseObject.producto)
+            .catch(err => {
+                console.log("Ocurrio un error al crear producto", err?.data);
+                throw err;
+            });
+}
+
+export const editarProducto = (token, idProducto, datosProducto) =>{
+    return fetch(`${API_URL}/productos/${idProducto}`,
+        {
+            method: "PUT",
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(datosProducto)
+        })
+            .then(fetchErrorHandle)
+            .then(response => response.json())
+            .then(responseObject => responseObject.producto)
+            .catch(err => {
+                console.log("Ocurrio un error al crear producto", err?.data);
+                throw err;
+            });
+}
+
+export const eliminarProducto = (token, idProducto) =>{
+    return fetch(`${API_URL}/productos/${idProducto}`,
+        {
+            method: "DELETE",
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+            .then(fetchErrorHandle)
+            .then(response => response.json())
             .catch(err => {
                 console.log("Ocurrio un error al crear producto", err?.data);
                 throw err;

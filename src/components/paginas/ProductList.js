@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { traerProductos } from '../../backend/funcionesBackEnd'
+import { traerProductos, traerProducto, crearProducto, editarProducto, eliminarProducto, login } from '../../backend/funcionesBackEndAdmin'
 import ProductRow from '../ProductRow';
 
 
@@ -9,11 +9,56 @@ function ProducList() {
     const [listaProductos,setListaProductos] = useState ([]);
     const [loadingProductos,setLoadingProductos] = useState (true);
 
+    const [token, setToken] = useState(null);
+
+    //Esto en realidad se ejecuta en la pagina de login
+    useEffect( () => {
+        login('admin@example.com', 'admin')
+            .then(({token, user}) => {
+                console.log('Se logueo el usuario', {user, token})
+                setToken(token);
+                //Guardar token y usuario en Context...
+            });
+    }, [])
 
     useEffect( () => {
-        traerProductos(setLoadingProductos)
-        .then (r => setListaProductos(r))
-    },[])
+        if(token){
+            setLoadingProductos(true);
+
+            //Leer token de context
+            traerProductos(token)
+                .then(productos => {
+                    setLoadingProductos(false);
+                    setListaProductos(productos);
+
+                    //Traer un solo producto
+                    traerProducto(token, productos[0].id)
+                        .then(producto => {
+                            console.log('Producto traido de a uno', {producto});
+                        });
+
+                    //Editar
+                    const productoAEditar = productos[0];
+                    editarProducto(
+                        token,
+                        productoAEditar.id, 
+                        {...productoAEditar, nombre: productoAEditar.nombre + '+'}
+                    )
+                        .then(productoEditado => {
+                            console.log('Producto editado', {productoEditado})
+                        });
+
+                    //Crear
+                    crearProducto(token, {...productos[0], stockInicial: 100})
+                        .then(productoNuevo => {
+                            console.log('Producto creado', {productoNuevo});
+
+                            //Eliminar producto
+                            eliminarProducto(token, productoNuevo.id);
+                        });
+                });
+        }
+    }, [token]);
 
     if(loadingProductos === true){
         console.log("cargando");

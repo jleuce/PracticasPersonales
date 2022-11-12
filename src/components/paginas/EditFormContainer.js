@@ -64,6 +64,7 @@ function EditFormContainer() {
     
 
     useEffect( () => {
+        //Pegarle a traerProducto
         traerProductos(setLoadingProductos)
             .then (r => {
                 setProducto(r.find(obj => obj.id === id))

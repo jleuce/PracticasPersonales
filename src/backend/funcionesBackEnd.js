@@ -22,6 +22,13 @@ export const traerProductos = (setLoading) => {
         })
 }
 
+export const traerProducto = (idProducto) =>{
+    return fetch(`${API_URL}/productos/${idProducto}`)
+       .then(fetchErrorHandle)
+       .then(response => response.json())
+       .then(responseObject => responseObject.producto);
+}
+
 export const traerPedidos = () => {
     return fetch(`${API_URL}/pedidos`)
         .then(fetchErrorHandle)
