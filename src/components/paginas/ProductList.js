@@ -31,16 +31,20 @@ function ProducList() {
             </div>
             <div>
                 <table>
-                    <tr>
-                        <th>id</th>
-                        <th>nombre</th>
-                        <th>descripcion</th>
-                        {/*<th>imagenUrl</th>*/}
-                        <th>stock</th>
-                        <th>precio</th>
-                        <th>botones</th>
-                    </tr>
-                    {listaProductos.map(p => <ProductRow producto={p} key={p.id}></ProductRow>)}
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>nombre</th>
+                            <th>descripcion</th>
+                            {/*<th>imagenUrl</th>*/}
+                            <th>stock</th>
+                            <th>precio</th>
+                            <th>botones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {listaProductos.map(p => <ProductRow producto={p} key={p.id}></ProductRow>)}
+                    </tbody>
                 </table>
             </div>
             </>

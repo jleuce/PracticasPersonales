@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormPersonalizado } from '../../hooks/useFormPersonalizado';
 import FormularioProducto from '../FormularioProducto'
 
@@ -40,23 +40,32 @@ const validationsForm = (form) => {
     return errors;
 };
 
-function CreateFormContainer() {
+function CreateFormContainer() {    
+   
+    const onSubmit = (formData) => {
+        console.log('Agregando producto nombre:', {formData});
+    }
 
-    const {form,
+    const {
+        form,
         errors,
         handleChange,
         handleBlur,
         handleSubmit,
-    } = useFormPersonalizado(initialForm,validationsForm);
-
+    } = useFormPersonalizado(
+        initialForm,
+        validationsForm,
+        onSubmit,
+    );
+    
   return (
     <div>
         <FormularioProducto
-        handleSubmit={handleSubmit}
-        errors={errors}
-        handleBlur={handleBlur}
-        handleChange={handleChange}
-        form={form}
+            handleSubmit={handleSubmit}
+            errors={errors}
+            handleBlur={handleBlur}
+            handleChange={handleChange}
+            form={form}
         ></FormularioProducto>
     </div>
   )

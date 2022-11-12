@@ -44,6 +44,12 @@ const validationsForm = (form) => {
 
 function EditFormContainer() {
 
+    const {id} = useParams();
+
+    const onSubmit = (formData) => {
+        console.log('Editando producto ID:', {id, formData})
+    }
+
     const {
         form,
         errors,
@@ -51,46 +57,40 @@ function EditFormContainer() {
         handleBlur,
         handleSubmit,
         setForm,
-    } = useFormPersonalizado(initialForm,validationsForm);
+    } = useFormPersonalizado(initialForm, validationsForm, onSubmit);
 
     const [producto,setProducto] = useState ({});
-    const [loadingProductos,setLoadingProductos] = useState ({});
-    const {id} = useParams();
+    const [loadingProductos,setLoadingProductos] = useState (true);
+    
 
     useEffect( () => {
-        console.log(`el params es ${id}`);
         traerProductos(setLoadingProductos)
-        .then (r => {
-                    setProducto(r.find(obj => obj.id === id))
-                    })
+            .then (r => {
+                setProducto(r.find(obj => obj.id === id))
+            })
     },[])
 
     useEffect( () => {
-        setForm({...producto,description:producto.descripcion,})
-        console.log(producto);
-        console.log(form);
+        setForm({...producto,description: producto.descripcion,})
     },[producto])
 
-        if(loadingProductos === true){
+    if(loadingProductos === true){
             return(
             <div>Esta cargando</div>
             )
-        }else{
+    }else{
             
-            console.log("soy el prod");
-            console.log(producto);
-            console.log("soy el form");
-            console.log(form);
-            return(
-              <FormularioProducto
-              handleSubmit={handleSubmit}
-              errors={errors}
-              handleBlur={handleBlur}
-              handleChange={handleChange}
-              form={form}
-              ></FormularioProducto>
-            )
-        }
+        console.log("soy el prod", {producto, form});
+        return(
+            <FormularioProducto
+                handleSubmit={handleSubmit}
+                errors={errors}
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                form={form}
+            ></FormularioProducto>
+        )
+    }
 }
 
 export default EditFormContainer

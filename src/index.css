@@ -15,11 +15,11 @@ code {
 .textBoxAlert{
   color: black;
   background-color: red;
-  border: green;
+  border-color: green;
 }
 
 .textBoxValid{
   color: green;
   background-color: green;
-  border: red;
+  border-color: red;
 }

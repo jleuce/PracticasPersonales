@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useFormPersonalizado = (initialForm, validateForm) =>{
+export const useFormPersonalizado = (initialForm, validateForm, onSubmit,hooks) =>{
     const [form, setForm] = useState(initialForm);
     const [errors, setErrors] = useState({});
     const [loading,setLoading] = useState(false);
@@ -13,11 +13,22 @@ export const useFormPersonalizado = (initialForm, validateForm) =>{
             [name]:value,
         })
     };
+
     const handleBlur = (e)=>{
         handleChange(e);
         setErrors(validateForm(form));
     };
+
     const handleSubmit = (e)=>{
+        e.preventDefault();
+
+        const errors = validateForm(form);
+        console.log({errors});
+        if(Object.keys(errors).length === 0){
+            onSubmit(form);
+        }else{
+            setErrors(errors);
+        }
     };
 
     return {
