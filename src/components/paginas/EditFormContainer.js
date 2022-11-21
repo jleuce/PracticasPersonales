@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormPersonalizado } from '../../hooks/useFormPersonalizado';
 import FormularioProducto from '../FormularioProducto'
-import { traerProductos } from '../../backend/funcionesBackEnd';
+import { traerProducto } from '../../backend/funcionesBackEndAdmin';
 import UserContext from '../context/UserContext';
 import { editarProducto } from '../../backend/funcionesBackEndAdmin';
 
+//traerProducto = (token, idProducto)
 
 const initialForm = {
     nombre:"",
@@ -91,10 +92,11 @@ function EditFormContainer() {
 
     useEffect( () => {
         //Pegarle a traerProducto
-        traerProductos(setLoadingProductos)
-            .then (r => {
-                setProducto(r.find(obj => obj.id === id))
-            })
+        setLoadingProductos(true);
+        traerProducto(user.token,id)
+            .then (r => setProducto(r))
+            .then(()=>setLoadingProductos(false))
+            .catch(r=>console.log('error',r))
     },[])
 
     useEffect( () => {
