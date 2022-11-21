@@ -11,18 +11,18 @@ import { UserContextProvider } from './components/context/UserContext';
 function App() {
   return (
     <div>
-    <UserContextProvider>
     <BrowserRouter>
-      <NavBar/>
-      <Routes>
-        <Route path='/' element={<ProductList/>}/>
-        <Route path='/formulario/agregarnuevoproducto' element={<CreateFormContainer/>}/>
-        <Route path='/formulario/:id' element={<EditFormContainer/>}/>
-        <Route path='/confirmar/:id' element={<ConfirmCart/>}/>
-        <Route path='/login' element={<LoginContainer/>}/>
-      </Routes>
+      <UserContextProvider>
+        <NavBar/>
+        <Routes>
+          <Route path='/' element={<LoginContainer/>}/>
+          <Route path='/listaproductos' element={<ProductList/>}/>
+          <Route path='/formulario/agregarnuevoproducto' element={<CreateFormContainer/>}/>
+          <Route path='/formulario/:id' element={<EditFormContainer/>}/>
+          <Route path='/confirmar/:id' element={<ConfirmCart/>}/>
+        </Routes>
+      </UserContextProvider>
     </BrowserRouter>
-    </UserContextProvider>
     </div>
   );
 }

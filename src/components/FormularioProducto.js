@@ -9,8 +9,16 @@ function FormularioProducto(props) {
         handleBlur,
         handleChange,
         form,
+        backEndErrors,
+        handleBackEndErrors,
     } = props;
 
+    if (backEndErrors.length > 0 ){
+        backEndErrors.forEach(e => {
+            alert(`error del tipo "${e.msg}" en el campo "${e.param}"`)  
+        });
+        handleBackEndErrors([])
+    }
     return(
         <>
             <div className="shadow-xl content-center">
@@ -29,7 +37,6 @@ function FormularioProducto(props) {
                                 required
                             />
                         </div>
-                        {errors.name ? <p className='textBoxAlert'>{errors.name}</p> : <p className='textBoxValid'>Ok</p>}
                         <div>
                             <label className="text-center">Descripción</label>
                             <input 
@@ -52,7 +59,6 @@ function FormularioProducto(props) {
                             value={form.imagenUrl} 
                             required/>
                         </div>
-                        {errors.imagenUrl ? <p>{errors.imagenUrl}</p> : ""}
                         <div>
                             <label className="text-center">Precio</label>
                             <input 
@@ -64,7 +70,6 @@ function FormularioProducto(props) {
                             value={form.precio} 
                             required/>
                         </div>
-                        {errors.precio?<p>{errors.precio}</p>:""}
                         <div>
                             <label className="text-center">Stock</label>
                             <input 
@@ -76,9 +81,12 @@ function FormularioProducto(props) {
                             value={form.stock} 
                             required/>
                         </div>
-                        {errors.stock?<p>{errors.stock}</p>:""}
                         <div>
                             <input className="btn btn-outline" type="submit" value="Enviar"/>
+                        </div>
+                        <div>
+                            <p>Tus errores:</p>
+                            {backEndErrors.map(r=> <p>{r.msg}</p>)}
                         </div>
                     </form>
                     </div>

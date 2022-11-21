@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserContext = createContext([]);
 
@@ -8,6 +9,7 @@ export const UserContextProvider = ({children}) => {
 
     const [user, setUser] = useState({});
     const [estadoLogueado, setEstadoLogueado] = useState(false);
+    const navigate = useNavigate();
 
     const saveUser = (usuario,token) => {
         setUser({
@@ -20,6 +22,9 @@ export const UserContextProvider = ({children}) => {
     //funcion deslogin
     const deslogin = () => {
         setUser({});
+        setEstadoLogueado(false);
+        console.log('te deslogueaste');
+        navigate('/login');
     }
 
     const fUser={

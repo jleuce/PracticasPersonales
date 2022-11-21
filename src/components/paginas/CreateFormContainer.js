@@ -3,6 +3,7 @@ import { useFormPersonalizado } from '../../hooks/useFormPersonalizado';
 import FormularioProducto from '../FormularioProducto';
 import { crearProducto } from '../../backend/funcionesBackEndAdmin';
 import UserContext from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const initialForm = {
     nombre:"",
@@ -44,9 +45,11 @@ const validationsForm = (form) => {
 
 function CreateFormContainer() {
     
+    const navigate = useNavigate();
+    const [backEndErrors,setBackEndErrors] = useState ([]);
+
     const {
-        user,
-        estadoLogueado
+        user
       } =  useContext(UserContext)
    
     const onSubmit = (formData) => {
@@ -58,7 +61,14 @@ function CreateFormContainer() {
             stockInicial: formData.stock,
             precio:formData.precio,
         }
-        crearProducto(user.token,obj);
+        crearProducto(user.token,obj)
+            .then(r => console.log('se creo el producto',r))
+            .then(()=> navigate('/listaproductos'))
+            .catch(err => {
+                console.log(err.data.message);
+                console.log(err.data.errors);
+                setBackEndErrors(err.data.errors);
+            })
         //falta agregar el campo stock inicial
     }
 
@@ -82,6 +92,8 @@ function CreateFormContainer() {
             handleBlur={handleBlur}
             handleChange={handleChange}
             form={form}
+            backEndErrors={backEndErrors}
+            handleBackEndErrors={setBackEndErrors}
         ></FormularioProducto>
     </div>
   )

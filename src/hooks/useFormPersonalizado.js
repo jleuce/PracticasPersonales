@@ -40,5 +40,6 @@ export const useFormPersonalizado = (initialForm, validateForm, onSubmit,hooks) 
         handleBlur,
         handleSubmit,
         setForm,
+        setErrors,
     }
 }

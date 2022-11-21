@@ -66,7 +66,7 @@ export const crearProducto = (token, datosProducto) =>{
             .then(response => response.json())
             .then(responseObject => responseObject.producto)
             .catch(err => {
-                console.log("Ocurrio un error al crear producto", err?.data);
+                //console.log("Ocurrio un error al crear producto", err?.data);
                 throw err;
             });
 }

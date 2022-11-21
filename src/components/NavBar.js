@@ -6,13 +6,17 @@ function NavBar() {
 
   const {
     user,
-    estadoLogueado
+    estadoLogueado,
+    deslogin
   } =  useContext(UserContext)
 
+  const desloguearse = () => {
+    deslogin();
+  }
   return (
     <div>
-        <Link to={'/'}>Ir a productos</Link>
-        <Link to={'/login'}>Login</Link>
+        {estadoLogueado===true?<Link to={'/listaproductos'}>Ir a productos</Link>:''}
+        {estadoLogueado===false?<Link to={'/'}>Login</Link>:<button onClick={desloguearse}>Desloguearse</button>}
         {estadoLogueado===true?user.usuario:"Sin loguear"}
     </div>
   )
