@@ -18,7 +18,7 @@ function FormularioProducto(props) {
                     <form onSubmit={handleSubmit}>
                         <div>
                             <label className="text-center" >Nombre</label>
-                            <input className={errors.name?"textBoxAlert text-center":"textBoxValid text-center"}
+                            <input
                                 type="text" 
                                 name="nombre" 
                                 placeholder='Escribe tu nombre' 

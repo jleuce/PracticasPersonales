@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useFormPersonalizado } from '../../hooks/useFormPersonalizado';
-import FormularioProducto from '../FormularioProducto'
+import FormularioProducto from '../FormularioProducto';
+import { crearProducto } from '../../backend/funcionesBackEndAdmin';
+import UserContext from '../context/UserContext';
 
 const initialForm = {
     nombre:"",
@@ -40,10 +42,24 @@ const validationsForm = (form) => {
     return errors;
 };
 
-function CreateFormContainer() {    
+function CreateFormContainer() {
+    
+    const {
+        user,
+        estadoLogueado
+      } =  useContext(UserContext)
    
     const onSubmit = (formData) => {
         console.log('Agregando producto nombre:', {formData});
+        const obj = {
+            nombre:formData.nombre,
+            descripcion:formData.description,
+            imagenUrl: formData.imagenUrl,
+            stockInicial: formData.stock,
+            precio:formData.precio,
+        }
+        crearProducto(user.token,obj);
+        //falta agregar el campo stock inicial
     }
 
     const {
