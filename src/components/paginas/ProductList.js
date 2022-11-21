@@ -8,7 +8,6 @@ function ProducList() {
 
     const [listaProductos,setListaProductos] = useState ([]);
     const [loadingProductos,setLoadingProductos] = useState (true);
-
     const [token, setToken] = useState(null);
 
     //Esto en realidad se ejecuta en la pagina de login
@@ -88,7 +87,7 @@ function ProducList() {
                         </tr>
                     </thead>
                     <tbody>
-                        {listaProductos.map(p => <ProductRow producto={p} key={p.id}></ProductRow>)}
+                        {listaProductos.map(p => <ProductRow producto={p} key={p.id} handleEliminarProducto={eliminarProducto}></ProductRow>)}
                     </tbody>
                 </table>
             </div>

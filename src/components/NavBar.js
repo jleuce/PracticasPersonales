@@ -14,10 +14,10 @@ function NavBar() {
     deslogin();
   }
   return (
-    <div>
-        {estadoLogueado===true?<Link to={'/listaproductos'}>Ir a productos</Link>:''}
-        {estadoLogueado===false?<Link to={'/'}>Login</Link>:<button onClick={desloguearse}>Desloguearse</button>}
-        {estadoLogueado===true?user.usuario:"Sin loguear"}
+    <div className='navBar'>
+        {estadoLogueado===true?<Link className='navBarComponent' to={'/listaproductos'}>Ir a productos</Link>:''}
+        {estadoLogueado===false?<Link className='navBarComponent' to={'/'}>Login</Link>:<button onClick={desloguearse}>Desloguearse</button>}
+        {estadoLogueado===true?<p className='navBarComponent'>Usuario: {user.usuario}</p>:<p className='navBarComponent'>"Sin loguear"</p>}
     </div>
   )
 }

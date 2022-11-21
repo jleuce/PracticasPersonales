@@ -23,3 +23,12 @@ code {
   background-color: green;
   border-color: red;
 }
+
+.navBar{
+  display:flex;
+  flex-direction:row;
+}
+
+.navBarComponent{
+  padding: 15px;
+}
