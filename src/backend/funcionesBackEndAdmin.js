@@ -29,13 +29,32 @@ export const login = (email, password) => {
 }
 
 export const traerProductos = (token) => {
-    return fetch (`${API_URL}/productos`, {method: "GET", headers: {'Authorization': `Bearer ${token}`}})
+    const url = `${API_URL}/productos?` + new URLSearchParams({cantidadPorPagina: 50}))
+    
+    return fetch (url, {method: "GET", headers: {'Authorization': `Bearer ${token}`}})
         .then(fetchErrorHandle)
         .then(response => {
             return response.json()
         })
         .then (res =>{
             return (res.productos)
+        })
+        .catch( err => {
+            console.log(err);
+            throw err;
+        })
+}
+
+export const traerProductosPaginado = (token, cantidadPorPagina, pagina) => {
+    const url = `${API_URL}/productos?` + new URLSearchParams({cantidadPorPagina, pagina}))
+    
+    return fetch (url, {method: "GET", headers: {'Authorization': `Bearer ${token}`}})
+        .then(fetchErrorHandle)
+        .then(response => {
+            return response.json();
+        })
+        .then (res =>{
+            return ({productos: res.productos, paginado: res.paginado})
         })
         .catch( err => {
             console.log(err);
