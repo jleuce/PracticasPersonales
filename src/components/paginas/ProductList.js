@@ -4,7 +4,7 @@ import { traerProductos, traerProducto, crearProducto, editarProducto, eliminarP
 import ProductRow from '../ProductRow';
 import UserContext from '../context/UserContext';
 
-const itemsPorLista = 3;
+const itemsPorLista = 3; //Esto, cuando termines con lo demas, hacelo configurable. Dale al usuario un Select con 4 opciones `1 por pagina`, `3 por pagina`, `5 por pagina`, `10 por pagina`
 
 function ProducList() {
 
@@ -42,6 +42,15 @@ function ProducList() {
         const arrayTransitorio = [...listaProductos];
         setListaParcialProductos(arrayTransitorio);
     }
+    
+    /*Esta funcion agregue
+        traerProductosPaginado(token, itemsPorLista, numeroLista)
+            .then(({productos, paginado}) => {
+                console.log({productos}); // Lo mismo que antes, el array de productos
+                console.log({paginado}); // Aca vas a ver el total de paginas, la cantidad por pagina, etc
+            });
+    */
+    
 
     //Esto en realidad se ejecuta en la pagina de login
     useEffect( () => {
