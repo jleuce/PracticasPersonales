@@ -93,6 +93,9 @@ function ProducList() {
                 <button onClick={incrementarLista}>Avanzar</button>
                 <button onClick={mostrarTodo}>Lista completa</button>
             </div>
+            <div>
+                <pageList logitudArray={longitudArray}></pageList>
+            </div>
             </>
         )
     }
